@@ -10,5 +10,27 @@
   <a href="/home/loginUser">Login</a>
   <a href="/home/registerUser">Register</a>
   <h1>Welcome to HacktiGo!</h1>
+  <br>
+  <a href="/home/loginRestaurant">Login Restaurant</a>
+  <a href="/home/registerRestaurant">Register Restaurant</a>
+  <br>
+
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th>Restaurant</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i = 0; i < restaurants.length; i++) { %>
+        <tr>
+          <td><%=restaurants[i].name%></td>
+          <td><a href = "/home/reserve/<%=restaurants[i].id%>">Reserve</a></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
 </body>
 </html>
