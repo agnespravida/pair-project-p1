@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h1><a href="/restaurants/menus/add">Add Menu</a></h1>
+<h1></h1>
+<h1></h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Amount</th>
+    <th>Description</th>
+  </tr>
+  <% data.forEach(el =>{ %>
+    <td><%= el.name %></td>
+    <td><%= el.price %></td>
+    <td><%= el.amount %></td>
+    <td><%= el.description %></td>
+    <td>
+        <a href="/restaurants/menus/:id/edit">Edit Menu</a>
+        <a href="/restaurants/menus/:id/delete">Delete Menu</a>
+    </td>
+  <% }) %>
+</table>
+
+</body>
+</html>

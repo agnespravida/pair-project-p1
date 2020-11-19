@@ -86,6 +86,6 @@ class ControllerRestaurant {
                 res.send(err)
             })
     }
-};
+};  
 
 module.exports = ControllerRestaurant;
