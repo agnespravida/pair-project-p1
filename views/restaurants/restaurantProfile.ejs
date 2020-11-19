@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Profile</title>
+</head>
+<body>
+  <h1><%=data.name%></h1>
+  <table>
+    <tr>
+      <td>Name</td>
+      <td><%=data.name%></td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td><%=data.username%></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><%=data.email%></td>
+    </tr>
+  </table>
+  <a href="/restaurants/menus/<%=data.id%>">See Menu</a><br>
+  <a href="/restaurants/reservations/<%=data.id%>">See Reservations</a>
+</body>
+</html>
