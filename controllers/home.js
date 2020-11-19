@@ -76,6 +76,8 @@ class ControllerHome {
   static registerRestaurant(req, res){
 
   }
+
+  
 }
 
 module.exports = ControllerHome
