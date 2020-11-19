@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Edit Menu</title>
+</head>
+<body>
+  <h1>Edit Menu</h1>
+  <form action="/restaurants/menus/<%=data.id%>/edit" method="POST">
+    Name:<br>
+    <input type="text" name="name" value="<%=data.name%>"><br>
+    Price:<br>
+    <input type="text" name="price" value="<%=data.price%>"><br>
+    Amount:<br>
+    <input type="text" name="amount" value="<%=data.amount%>"><br>
+    Description:<br>
+    <input type="text" name="description" value="<%=data.description%>"><br>
+    <input type="submit">
+  </form>
+</body>
+</html>

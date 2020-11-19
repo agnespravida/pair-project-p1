@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+</head>
+<body>
+  <h1>Menu</h1>
+  <a href="/restaurants/menus/<%=data.id%>/add">Add Menu</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0 ; i < menu.length; i++) { %>
+        <tr>
+          <td><%=menu[i].name%></td>
+          <td><%=menu[i].price%></td>
+          <td><%=menu[i].description%></td>
+          <td><a href="/restaurants/menus/<%=menu[i].id%>/edit">Edit</a> || <a href="/restaurants/menus/<%=menu[i].id%>/delete">Delete</a></td>
+        </tr>
+      <%}%>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    formatPrice(){
+      return `Rp ${this.price}`
+    }
+
     static associate(models) {
       // define association here
       Menu.belongsTo(models.Restaurant)
