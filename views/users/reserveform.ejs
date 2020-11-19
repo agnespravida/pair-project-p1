@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserve Table</title>
+</head>
+<body>
+  <h1><%=name%></h1>
+
+  <form action="/home/reserve/<%=id%>" method="POST">
+    Username:<br>
+    <input type="text" name= "username"><br>
+    Date:<br>
+    <input type="date" name= "date"><br>
+    Time: <br>
+    <select name="time">
+      <option value="10.00-12.00">10.00-12.00</option>
+      <option value="12.00-14.00">12.00-14.00</option>
+      <option value="14.00-16.00">14.00-16.00</option>
+      <option value="16.00-18.00">16.00-18.00</option>
+      <option value="18.00-20.00">18.00-20.00</option>
+      <option value="20.00-22.00">20.00-22.00</option>
+    </select><br>
+    <input type="submit">
+  </form>
+</body>
+</html>
