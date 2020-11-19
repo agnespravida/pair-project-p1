@@ -6,6 +6,9 @@
   <title>Register</title>
 </head>
 <body>
+  <% for (let i = 0; i < failedRegister.length; i++ ) {%>
+    <p style="color: red;"><%=failedRegister[i]%></p>
+  <%}%>
   <form action="/home/registerUser" method="POST">
     Name:
     <input type="text" name="name"><br>
