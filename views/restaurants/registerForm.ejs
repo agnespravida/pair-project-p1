@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Restaurant</title>
+</head>
+<body>
+  <h1>Register Restaurant</h1>
+  <% for (let i = 0; i < failedRegister.length; i++ ) {%>
+    <p style="color: red;"><%=failedRegister[i]%></p>
+  <%}%>
+  <form action="/home/registerRestaurant" method="POST">
+    Name:
+    <input type="text" name="name"><br>
+    Username:
+    <input type="text" name="username"><br>
+    Email:
+    <input type="text" name="email"><br>
+    Password:
+    <input type="password" name="password"><br>
+    SIUP Number:
+    <input type="text" name="siup_number"><br>
+    Deposit:
+    <input type="text" name="deposit"><br>
+    Capacity:
+    <input type="text" name="capacity"><br>
+    <input type="submit">
+  </form>
+</body>
+</html>

@@ -5,7 +5,13 @@ const bcrypt = require("bcryptjs")
 
 class ControllerHome {
   static showHome(req,res) {
-    res.render("homeGeneral.ejs")
+    Restaurant.findAll()
+    .then(restaurants => {
+      res.render("homeGeneral.ejs", { restaurants })
+    })
+    .catch(err => {
+      res.send(err.message)
+    })
     //res.send("Ini menunjukkan halaman home")
   }
   static loginFormUser(req, res) {
@@ -21,6 +27,7 @@ class ControllerHome {
     })
       .then(user => {
         if(user && comparePassword(req.body.password, user.password) ){
+          req.session.userId = user.id
           res.redirect(`/user/home/${user.id}`)
         }
         else {
@@ -63,6 +70,7 @@ class ControllerHome {
         })
       })
       .then(user => {
+        req.session.userId = user.id
         res.redirect(`/user/home/${user[0].id}`)
       })
       .catch(err => {
@@ -70,14 +78,92 @@ class ControllerHome {
         res.redirect(`/home/registerUser?failed=${err.message}`)
       })
   }
-  static loginRestaurant(req, res) {
+  static loginFormRestaurant(req, res) {
+    let failedLogin = req.query.failed
+    res.render("./restaurants/formLogin.ejs", { failedLogin })
+  }
+  static checkLoginRestaurant(req, res){
+    Restaurant.findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+      .then(restaurant => {
+        if(restaurant && comparePassword(req.body.password, restaurant.password) ){
+          req.session.restaurantId = restaurant.id
+          res.redirect(`/restaurants/profile/${restaurant.id}`)
+        }
+        else {
+          res.redirect("/home/loginRestaurant?failed=wrong username or password")
+        }
+      })
+      .catch((err) => {
+        res.send(err.message)
+      })
 
   }
-  static registerRestaurant(req, res){
+  static registerFormRestaurant(req, res) {
+    let failedRegister = req.query.failed
+    if (!failedRegister){
+      failedRegister = []
+      res.render("./restaurants/registerForm", { failedRegister })
+    }
+    else {
+      failedRegister = failedRegister.split(",")
+      res.render("./restaurants/registerForm", { failedRegister })
+      
+    }
+  }
+  static addRestaurant(req, res){
+    let newRestaurant = {
+      name: req.body.name,
+      username:req.body.username,
+      email:req.body.email,
+      password: req.body.password,
+      siup_num: req.body.siup_number,
+      deposit: req.body.deposit,
+      capacity: req.body.capacity
+
+    }
+    Restaurant.create(newRestaurant)
+      .then(() => {
+        return Restaurant.findAll({
+          where:{
+            username: req.body.username
+          }
+        })
+      })
+      .then(restaurant => {
+        req.session.restaurantId = restaurant.id
+        res.redirect(`/restaurants/profile/${restaurant[0].id}`)
+      })
+      .catch(err => {
+        //perbaiki pesan errornya
+        res.redirect(`/home/registerRestaurant?failed=${err.message}`)
+      })
 
   }
 
-  
+  static logoutUser(req, res){
+    req.session.destroy((err) => {
+      if(err){
+        res.send(err)
+      }
+      else {
+        res.redirect("/home")
+      }
+    })
+  }
+  static logoutRestaurant(req, res){
+    req.session.destroy((err) => {
+      if(err){
+        res.send(err)
+      }
+      else {
+        res.redirect("/home")
+      }
+    })
+  }
 }
 
 module.exports = ControllerHome

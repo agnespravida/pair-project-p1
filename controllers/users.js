@@ -1,11 +1,16 @@
-const { User } = require("../models/index.js")
+const { User, Restaurant, Reservation } = require("../models/index.js")
 const comparePassword = require("../helpers/comparerPassword")
 const hashPassword = require("../helpers/hashPassword")
+//const restaurant = require("../models/restaurant.js")
 
 class UserController {
   static showUserHome(req, res) {
-    let id = +req.params.id
-    res.render("./users/homeUser.ejs", { id })
+    Restaurant.findAll()
+    .then(restaurants => {
+      let id = +req.params.id
+      res.render("./users/homeUser.ejs", { id, restaurants })
+    })
+  
   }
   static showProfile(req, res){
     User.findByPk(+req.params.id)
@@ -72,11 +77,50 @@ class UserController {
     })
   }
 
-  static reserveTable(req, res) {
-
+  static reserveTableForm(req, res) {
+    let id = +req.params.id
+    Restaurant.findByPk(id)
+    .then(restaurant => {
+      let name = restaurant.name
+      res.render("./users/reserveform.ejs", { name, id })
+    })
+  }
+  static reserveTable(req, res){
+    let newTransaction = null
+    User.findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+      .then(data => {
+        newTransaction = {
+          UserId: data.id,
+          RestaurantId: req.params.id,
+          date: req.body.date,
+          time: req.body.time
+        }
+        return Reservation.create(newTransaction)
+      })
+      .then(() => {
+        res.redirect(`/user/home/${newTransaction.UserId}`)
+      })
+      .catch(err => {
+        res.send(err)
+      }) 
   }
   static getReservationsList(req, res){
+    User.findByPk(+req.params.id, {
+      include: Restaurant
+    })
+    .then(data => {
+      
+      res.render("./users/reservationlist.ejs", { reservation: data.Restaurants })
+    })
+    .catch(err => {
+      res.send(err.message)
+    })
 
+    //res.render("./users/reservations", )
   }
 }
 
