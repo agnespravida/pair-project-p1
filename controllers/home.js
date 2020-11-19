@@ -2,6 +2,7 @@ const { Restaurant, User } = require("../models/index")
 const comparePassword = require("../helpers/comparerPassword")
 const bcrypt = require("bcryptjs")
 
+
 class ControllerHome {
   static showHome(req,res) {
     res.render("homeGeneral.ejs")
@@ -32,7 +33,16 @@ class ControllerHome {
     //res.send(req.body)
   }
   static registerFormUser(req, res) {
-    res.render("./users/registerForm")
+    let failedRegister = req.query.failed
+    if (!failedRegister){
+      failedRegister = []
+      res.render("./users/registerForm", { failedRegister })
+    }
+    else {
+      failedRegister = failedRegister.split(",")
+      res.render("./users/registerForm", { failedRegister })
+      
+    }
     //res.send("menampilkan form registrasi user")
   }
   static addUser(req, res){
@@ -56,9 +66,8 @@ class ControllerHome {
         res.redirect(`/user/home/${user[0].id}`)
       })
       .catch(err => {
-        //perbaiki pesan messagenya
-        console.log(err.message)
-        res.send(err.message)
+        //perbaiki pesan errornya
+        res.redirect(`/home/registerUser?failed=${err.message}`)
       })
   }
   static loginRestaurant(req, res) {

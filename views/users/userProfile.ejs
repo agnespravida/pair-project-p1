@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Profile</title>
+</head>
+<body>
+  <a href="/user/home/<%=user.id%>">Back to Home</a>
+  <h1>Your Profile</h1>
+  <table>
+    <tr>
+      <td>Name</td>
+      <td><%=user.name%></td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td><%=user.username%></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><%=user.email%></td>
+    </tr>
+    <a href ="/user/profile/edit/password/<%=user.id%>">Change Password</a> || <a href = "/user/profile/edit/<%=user.id%>">Change Profile</a>
+  </table>
+</body>
+</html>
